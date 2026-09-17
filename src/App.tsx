@@ -11,7 +11,7 @@ export default function App() {
   useCursor();
 
   return (
-    <div className="app">
+    <div className="app" id="top">
       <div className="cursor-dot" aria-hidden />
       <div className="cursor-ring" aria-hidden />
 
@@ -22,6 +22,7 @@ export default function App() {
             chapter={chapter}
             loading={loading}
             loadPct={loadPct}
+            progress={progress}
           />
         </div>
       </div>

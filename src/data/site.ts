@@ -16,6 +16,7 @@ export const site = {
 } as const;
 
 export const nav = [
+  { label: "Home", href: "#top" },
   { label: "Work", href: "#work" },
   { label: "Capabilities", href: "#capabilities" },
   { label: "About", href: "#about" },
@@ -136,6 +137,17 @@ export const tools = [
   "PostgreSQL",
   "GitHub Actions",
   "FCM",
+] as const;
+
+export const heroTechOrbit = [
+  { label: "Flutter", mark: "FL" },
+  { label: "Clean Architecture", mark: "CA" },
+  { label: "BLoC", mark: "BL" },
+  { label: "SwiftUI", mark: "SW" },
+  { label: "Firebase", mark: "FB" },
+  { label: "Supabase", mark: "SU" },
+  { label: "Go", mark: "GO" },
+  { label: "Next.js", mark: "NX" },
 ] as const;
 
 export const education = [

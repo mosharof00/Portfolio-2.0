@@ -18,6 +18,3 @@ dist-ssr
 .idea
 .DS_Store
 
-# Analysis scratch (video frame dumps)
-.video_frames/
-.venv_frames/

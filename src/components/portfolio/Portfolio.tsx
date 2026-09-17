@@ -17,6 +17,9 @@ import { ArrowIcon, CapIcon, DownloadIcon } from "../ui/Icons";
 import { WorkVisual } from "./WorkVisual";
 import "./Portfolio.css";
 
+// Preserved for the next design pass; switch on when the company timeline is ready.
+const SHOW_EXPERIENCE = false;
+
 export function Portfolio() {
   const root = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,7 +37,7 @@ export function Portfolio() {
   return (
     <section className="folio" ref={root}>
       <header className="folio-nav">
-        <a className="brand" href="#intro">
+        <a className="brand" href="#top">
           <span className="brand-mark" aria-hidden />
           <span className="brand-name">{site.shortName}</span>
         </a>
@@ -73,7 +76,7 @@ export function Portfolio() {
         </nav>
       )}
 
-      <div className="intro wrap" id="intro" data-reveal>
+      <div className="intro wrap" id="about" data-reveal>
         <div className="intro-copy">
           <p className="eyebrow">{site.tagline}</p>
           <h2>
@@ -94,8 +97,8 @@ export function Portfolio() {
           </div>
         </div>
 
-        <div className="intro-portrait" aria-hidden>
-          <svg className="orbit-ring" viewBox="0 0 320 320">
+        <div className="intro-portrait">
+          <svg className="orbit-ring" viewBox="0 0 320 320" aria-hidden>
             <defs>
               <path
                 id="orbit-path"
@@ -109,11 +112,14 @@ export function Portfolio() {
               </textPath>
             </text>
           </svg>
-          <div className="monogram">
-            <span>{site.shortName}</span>
-            <small>{site.name}</small>
-          </div>
-          <i className="orbit-star" />
+          <img
+            className="intro-photo"
+            src="/mosharof-portrait.png"
+            alt={`${site.name}, ${site.role}`}
+            width={610}
+            height={1148}
+          />
+          <i className="orbit-star" aria-hidden />
         </div>
       </div>
 
@@ -228,30 +234,37 @@ export function Portfolio() {
         </div>
       </div>
 
-      <div className="about wrap" id="about">
-        <h3 data-reveal>Experience</h3>
-        <ol className="jobs" data-stagger>
-          {experience.map((job, i) => (
-            <GlassCard as="li" key={job.company + job.period} className="job-card" index={`0${i + 1}`}>
-              <div className="job-top">
-                <h4>
-                  {job.role}
-                  <span> — {job.company}</span>
-                </h4>
-                <p>
-                  {job.period}
-                  <span> · {job.place}</span>
-                </p>
-              </div>
-              <ul>
-                {job.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </GlassCard>
-          ))}
-        </ol>
-      </div>
+      {SHOW_EXPERIENCE && (
+        <div className="about wrap">
+          <h3 data-reveal>Experience</h3>
+          <ol className="jobs" data-stagger>
+            {experience.map((job, i) => (
+              <GlassCard
+                as="li"
+                key={job.company + job.period}
+                className="job-card"
+                index={`0${i + 1}`}
+              >
+                <div className="job-top">
+                  <h4>
+                    {job.role}
+                    <span> — {job.company}</span>
+                  </h4>
+                  <p>
+                    {job.period}
+                    <span> · {job.place}</span>
+                  </p>
+                </div>
+                <ul>
+                  {job.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </GlassCard>
+            ))}
+          </ol>
+        </div>
+      )}
 
       <div className="process wrap" id="process">
         <h3 data-reveal>How I ship</h3>

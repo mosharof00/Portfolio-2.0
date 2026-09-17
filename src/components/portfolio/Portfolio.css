@@ -238,14 +238,17 @@
 
 /* —— Intro —— */
 .intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
+  position: relative;
+  display: flex;
   align-items: center;
+  min-height: clamp(560px, 64vw, 720px);
   padding: clamp(2.5rem, 7vh, 5.5rem) 0 clamp(2rem, 5vh, 3.5rem);
 }
 
 .intro-copy {
+  position: relative;
+  z-index: 3;
+  width: min(64%, 43rem);
   min-width: 0;
 }
 
@@ -260,7 +263,7 @@
 
 .intro h2 {
   margin: 0;
-  font-size: clamp(2.6rem, 7vw, 5.6rem);
+  font-size: clamp(2.5rem, 6.2vw, 5.15rem);
   font-weight: 800;
   letter-spacing: -0.055em;
   line-height: 0.9;
@@ -332,21 +335,54 @@
 }
 
 .intro-portrait {
-  position: relative;
-  aspect-ratio: 1;
-  width: 100%;
-  max-width: 420px;
-  margin-left: auto;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 10%;
+  bottom: 0;
+  aspect-ratio: 3 / 4;
+  width: min(48%, 500px);
   display: grid;
-  place-items: center;
+  place-items: end center;
+  pointer-events: none;
+}
+
+.intro-portrait::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #01020a 0%, transparent 34%),
+    linear-gradient(180deg, #01020a 0%, transparent 18%, transparent 72%, #01020a 100%);
+}
+
+.intro-photo {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 1;
+  height: 108%;
+  width: auto;
+  max-width: 112%;
+  transform: translateX(-50%);
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 28px 48px rgba(4, 10, 28, 0.55));
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%);
+  pointer-events: none;
+  user-select: none;
 }
 
 .orbit-ring {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: 6% 4% 18%;
+  width: auto;
+  height: auto;
   animation: orbit 48s linear infinite;
+  pointer-events: none;
 }
 
 .orbit-track {
@@ -363,41 +399,11 @@
   font-family: var(--font-mono);
 }
 
-.monogram {
-  width: 58%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  background:
-    radial-gradient(circle at 35% 25%, rgba(126, 182, 255, 0.28), transparent 42%),
-    linear-gradient(180deg, rgba(21, 32, 68, 0.85), rgba(7, 11, 22, 0.8));
-  border: 1px solid rgba(126, 182, 255, 0.28);
-  box-shadow: 0 0 80px rgba(77, 124, 255, 0.18);
-  backdrop-filter: blur(10px);
-}
-
-.monogram span {
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  font-weight: 800;
-  letter-spacing: -0.06em;
-  line-height: 1;
-}
-
-.monogram small {
-  display: block;
-  margin-top: 0.4rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .orbit-star {
   position: absolute;
-  right: 14%;
-  top: 18%;
+  right: 10%;
+  top: 14%;
+  z-index: 2;
   width: 8px;
   height: 8px;
   background: #fff;
@@ -1054,15 +1060,14 @@
 }
 
 @media (max-width: 980px) {
-  .intro,
   .split,
   .cta {
     grid-template-columns: 1fr;
   }
 
   .intro-portrait {
-    margin: 0 auto;
-    width: min(320px, 78%);
+    right: -2%;
+    width: min(55%, 430px);
   }
 
   .stats {
@@ -1086,6 +1091,30 @@
 }
 
 @media (max-width: 720px) {
+  .intro {
+    min-height: 650px;
+    align-items: flex-end;
+    padding-bottom: 4rem;
+  }
+
+  .intro-copy {
+    width: 100%;
+  }
+
+  .intro-portrait {
+    top: 2%;
+    right: -12%;
+    bottom: 5%;
+    width: 92%;
+    opacity: 0.64;
+  }
+
+  .intro-portrait::after {
+    background:
+      linear-gradient(90deg, #01020a 0%, transparent 46%),
+      linear-gradient(180deg, #01020a 0%, transparent 22%, transparent 58%, #01020a 94%);
+  }
+
   .process-grid,
   .cap-grid,
   .tools {
@@ -1109,7 +1138,8 @@
   }
 
   .intro h2 {
-    font-size: clamp(2.4rem, 13vw, 3.2rem);
+    font-size: clamp(2.3rem, 12vw, 3rem);
+    text-shadow: 0 4px 24px rgba(1, 2, 10, 0.82);
   }
 
   .work-card {

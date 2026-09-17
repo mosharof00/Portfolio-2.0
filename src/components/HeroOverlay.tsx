@@ -1,18 +1,21 @@
+import type { RefObject } from "react";
 import { heroChapters, nav, site } from "../data/site";
+import { HeroTechOrbit } from "./HeroTechOrbit";
 
 type Props = {
   chapter: number;
   loading: boolean;
   loadPct: number;
+  progress: RefObject<number>;
 };
 
-export function HeroOverlay({ chapter, loading, loadPct }: Props) {
+export function HeroOverlay({ chapter, loading, loadPct, progress }: Props) {
   const c = heroChapters[Math.min(chapter, heroChapters.length - 1)];
 
   return (
     <>
       <header className={`nav ${loading ? "nav--hidden" : ""}`}>
-        <a className="brand" href="#intro">
+        <a className="brand" href="#top">
           <span className="brand-mark" aria-hidden />
           <span className="brand-name">{site.shortName}</span>
         </a>
@@ -52,12 +55,20 @@ export function HeroOverlay({ chapter, loading, loadPct }: Props) {
           {c.badge}
         </span>
         <h1>
-          {c.title.split("\n").map((line) => (
-            <span key={line}>{line}</span>
+          {c.title.split("\n").map((line, index) => (
+            <span className="story-line" key={line}>
+              <span style={{ animationDelay: `${140 + index * 110}ms` }}>
+                {line}
+              </span>
+            </span>
           ))}
         </h1>
-        <p>{c.body}</p>
+        <p className="story-body">
+          <span>{c.body}</span>
+        </p>
       </div>
+
+      <HeroTechOrbit progress={progress} loading={loading} />
 
       <div className={`scroll-hint ${loading ? "hero-copy--hidden" : ""}`}>
         <span>Scroll</span>
