@@ -1,44 +1,30 @@
+import { heroChapters, nav, site } from "../data/site";
+
 type Props = {
   chapter: number;
   loading: boolean;
   loadPct: number;
 };
 
-const CHAPTERS = [
-  {
-    badge: "Operational intelligence",
-    title: "Streamlined\nTravel Ops",
-    body: "Visas and work permits — arranged before you leave the ground.",
-  },
-  {
-    badge: "Trusted network",
-    title: "Partners\nin Motion",
-    body: "A constellation of carriers and insurers orbiting one operating system.",
-  },
-  {
-    badge: "Intelligence with purpose",
-    title: "Clarity\nat Scale",
-    body: "From underwriting signals to case velocity — one luminous source of truth.",
-  },
-] as const;
-
 export function HeroOverlay({ chapter, loading, loadPct }: Props) {
-  const c = CHAPTERS[Math.min(chapter, CHAPTERS.length - 1)];
+  const c = heroChapters[Math.min(chapter, heroChapters.length - 1)];
 
   return (
     <>
       <header className={`nav ${loading ? "nav--hidden" : ""}`}>
-        <div className="brand">
+        <a className="brand" href="#intro">
           <span className="brand-mark" aria-hidden />
-          <span className="brand-name">Vistora</span>
-        </div>
+          <span className="brand-name">{site.shortName}</span>
+        </a>
         <nav className="nav-pills" aria-label="Primary">
-          <a href="#platform">Platform</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#analytics">Analytics</a>
+          {nav.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
         </nav>
-        <a className="nav-cta" href="#demo">
-          Request Demo
+        <a className="nav-cta" href="#contact">
+          Let&apos;s talk
         </a>
       </header>
 

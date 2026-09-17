@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body,
 #root {
@@ -77,6 +81,20 @@ a {
   height: 28px;
   margin: -14px 0 0 -14px;
   border: 1px solid rgba(255, 255, 255, 0.55);
+  transition:
+    width 0.28s ease,
+    height 0.28s ease,
+    margin 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease;
+}
+
+.cursor-ring.is-hot {
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-color: var(--accent-hot);
+  background: rgba(126, 182, 255, 0.1);
 }
 
 @media (pointer: coarse) {
@@ -116,6 +134,7 @@ a {
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  color: inherit;
 }
 
 .brand-mark {
@@ -330,26 +349,4 @@ a {
     opacity: 1;
     transform: scaleY(1);
   }
-}
-
-.after {
-  position: relative;
-  z-index: 2;
-  padding: clamp(4rem, 12vh, 7rem) clamp(1.25rem, 5vw, 4rem);
-  background: linear-gradient(180deg, #01020a 0%, #07102a 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.after h2 {
-  margin: 0;
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-  letter-spacing: -0.03em;
-  max-width: 18ch;
-}
-
-.after p {
-  margin: 1rem 0 0;
-  max-width: 36rem;
-  color: var(--muted);
-  line-height: 1.6;
 }
